@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar</title>
+</head>
+<body>
+<div class="app">
+  <div class="toolbar">
+    <div class="brand">Calendar</div>
+    <div class="views">
+      <button data-view="month" class="active">Month</button>
+      <button data-view="week">Week</button>
+      <button data-view="day">Day</button>
+    </div>
+    <div class="navctl">
+      <button id="prevBtn">&#8249;</button>
+      <button class="today-btn" id="todayBtn">Today</button>
+      <button id="nextBtn">&#8250;</button>
+    </div>
+    <div class="period-label" id="periodLabel"></div>
+    <div class="spacer"></div>
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="Search  /">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <button class="btn" id="tagsBtn">Tags</button>
+    <button class="btn" id="exportBtn">Export JSON</button>
+    <button class="btn" id="importBtn">Import JSON</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none;">
+    <button class="btn primary" id="newBtn">+ Event</button>
+    <button class="icon-btn" id="themeBtn" title="Toggle theme">&#9789;</button>
+    <button class="icon-btn" id="helpBtn" title="Shortcuts">?</button>
+  </div>
+
+  <div class="main" id="main">
+    <div class="month-dow" id="monthDow"></div>
+    <div class="month-grid" id="monthGrid"></div>
+  </div>
+
+  <div class="tagmgr" id="tagMgr">
+    <h3>Tags</h3>
+    <div id="tagList"></div>
+    <div class="addtag">
+      <input id="newTagName" type="text" placeholder="New tag name">
+      <button class="btn" id="addTagBtn">Add</button>
+    </div>
+  </div>
+
+  <div class="help" id="helpPanel">
+    <h3>Keyboard shortcuts</h3>
+    <div class="line"><span class="k">m</span><span class="k">w</span><span class="k">d</span> switch view</div>
+    <div class="line"><span class="k">h</span><span class="k">l</span> prev / next period</div>
+    <div class="line"><span class="k">j</span><span class="k">k</span> scroll timeline</div>
+    <div class="line"><span class="k">t</span> jump to today</div>
+    <div class="line"><span class="k">n</span> new event</div>
+    <div class="line"><span class="k">/</span> focus search</div>
+    <div class="line"><span class="k">Esc</span> close / clear</div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitle">New event</h2>
+    <div class="field">
+      <label>Title</label>
+      <input type="text" id="f-title" placeholder="Untitled event">
+    </div>
+    <div class="checkrow">
+      <input type="checkbox" id="f-allday"><label for="f-allday">All day</label>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Date</label><input type="date" id="f-date"></div>
+    </div>
+    <div class="row2" id="timeRow">
+      <div class="field"><label>Start</label><input type="time" id="f-start" value="09:00"></div>
+      <div class="field"><label>End</label><input type="time" id="f-end" value="10:00"></div>
+    </div>
+    <div class="field">
+      <label>Tag</label>
+      <div class="tagpick" id="tagPick"></div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Repeat</label>
+        <select id="f-freq">
+          <option value="none">Does not repeat</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
+      <div class="field" id="intervalField" style="display:none;">
+        <label>Every</label>
+        <input type="text" id="f-interval" value="1" style="width:100%;">
+      </div>
+    </div>
+    <div class="field" id="untilField" style="display:none;">
+      <label>Ends on (optional)</label>
+      <input type="date" id="f-until">
+    </div>
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="f-notes" placeholder="Details..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <div class="left"><button class="btn" id="deleteBtn" style="display:none;color:var(--danger);">Delete</button></div>
+      <div class="right">
+        <button class="btn" id="cancelBtn">Cancel</button>
+        <button class="btn primary" id="saveEventBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
